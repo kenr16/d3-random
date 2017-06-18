@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+</head>
+<body>
+
+<p>Ken Rutan's name in a box</p>
+
+<svg width="1000" height="1000">
+<circle cx="40" cy="60" r="10"></circle>
+<circle cx="100" cy="60" r="10"></circle>
+<circle cx="160" cy="60" r="10"></circle>
+<circle cx="220" cy="60" r="10"></circle>
+<circle cx="280" cy="60" r="10"></circle>
+<circle cx="340" cy="60" r="10"></circle>
+<circle cx="400" cy="60" r="10"></circle>
+<circle cx="460" cy="60" r="10"></circle>
+<circle cx="520" cy="60" r="10"></circle>
+<circle cx="580" cy="60" r="10"></circle>
+<circle cx="640" cy="60" r="10"></circle>
+
+</svg>
+
+
+<script type="text/javascript">
+var circle = d3.selectAll("circle");
+
+circle.style("fill", "steelblue");
+circle.attr("r", 30);
+circle.attr("cx", function() { return Math.random() * 1000; });
+circle.attr("cy", function() { return Math.random() * 1000; });
+//The function wrapping the Math.random call ensures that EACH circle is given its own random point.
+circle.data([32, 57, 112]);
+//This code will bind data to the circles.
+
+
+circle.on("mouseover", animateZeroStep);
+
+// p.on("mouseover", animateZStep);
+
+function animateZeroStep(){
+d3.selectAll("circle")
+  .transition()
+    .delay(0)
+    .duration(0)
+    .each("end", animateFirstStep);
+};
+
+
+function animateFirstStep(){
+d3.select(this)
+// d3.selectAll("circle")
+  .transition()
+    .delay(0)
+    .duration(1000)
+    .attr("cx", Math.random() * 1000)
+    .attr("cy", Math.random() * 1000)
+    .attr("r", Math.random() * 100)
+    .style("fill", "rgb(" + (Math.random() * 256) + "," + (Math.random() * 256) + "," + (Math.random() * 256) + ")")
+    .each("end", animateFirstStep);
+};
+
+</script>
+
+
+
+</body>
+</html>
