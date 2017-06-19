@@ -44,12 +44,13 @@
 
     var thisData = [
       { R: 300, r:  1.5, speed: 7, phi0: 90, cx: 115, cy: 0 },
-      { R: 150, r: 15, speed: 3.5, phi0: 190, cx: 150, cy: 0 },
+      { R: 150, r: 15, speed: 3.5, phi0: 90, cx: 150, cy: 0 },
       { R: 300, r:  3.5, speed: 2.5, phi0: 90, cx: 183, cy: 0 },
-      { R: 150, r: 3.5, speed: 4, phi0: 190, cx: 237, cy: 0 },
+      { R: 150, r: 3.5, speed: 4, phi0: 90, cx: 237, cy: 0 },
       { R: 300, r:  6.8, speed: 5, phi0: 90, cx: 385, cy: 0 },
-      { R: 150, r: 5.3, speed: 6.3, phi0: 190, cx: 294, cy: 0 },
-      { R: 250, r: 4.2, speed: 22, phi0: 45, cx: 125, cy: 0 } ];
+      { R: 150, r: 5.3, speed: 6.3, phi0: 90, cx: 294, cy: 0 },
+      { R: 175, r: 3.8, speed: 15, phi0: 90, cx: 400, cy: 0 },
+      { R: 250, r: 4.2, speed: 22, phi0: 90, cx: 125, cy: 0 } ];
 
     var satelite = svg.selectAll(".notEarth")
         .data(thisData, function(d, i) { return (i); } )
@@ -58,14 +59,27 @@
     var sateliteEnter = satelite.enter().append("circle")
         .attr("class", "satelite");
 
+    var allSatelites = svg.selectAll(".satelite")
 
-    satelite.attr("cx", function(d) { return d.cx; });
-    satelite.attr("cy", function(d) { return d.cy; });
-    satelite.attr("r", function(d) { return d.r; });
+    allSatelites.attr("cx", function(d) { return d.cx; });
+    allSatelites.attr("cy", function(d) { return d.cy; });
+    allSatelites.attr("r", function(d) { return d.r; });
 
     // sateliteEnter.attr("cx", function(d) { return d.cx; });
     // sateliteEnter.attr("cy", function(d) { return d.cy; });
     // sateliteEnter.attr("r", function(d) { return d.r; });
+
+    satelite.on("mouseover", displayData);
+
+    function displayData(){
+      console.log(speed);
+      d3.select(this)
+    // d3.selectAll("circle")
+      .attr(speed, 0)
+      .transition()
+        .delay(0)
+        .duration(0);
+    };
 
     var t0 = Date.now();
 
@@ -81,54 +95,11 @@
 
 
       svg.selectAll(".satelite").attr("transform", function(d) {
-        return "translate(500,500), rotate(" + delta *  d.speed/200 + ")";
+        return "translate(500,500), rotate(" + d.phi0 + delta *  d.speed/200 + ")";
 
         //This is the function that creates a rotational path based on the amount of time that has elapsed.
       });
     });
-
-
-      //
-      // var w = 800, h = 600;
-      //
-      //
-      // var satelites = [
-      //   { R: 300, r:  5, speed: 5, phi0: 90 },
-      //   { R: 150, r: 10, speed: 2, phi0: 190 },
-      //   { R: 250, r: 7, speed: 22, phi0: 0 }
-      //   //Large R selects orbit radius, small r selects size, phi0 selects starting position.
-      // ];
-      //
-      //
-      // var svg = d3.select("#lowEarthOrbit").insert("svg")
-      //   .attr("width", w).attr("height", h);
-      //
-      // svg.append("circle").attr("r", 20).attr("cx", w/2)
-      //   .attr("cy", h/2).attr("class", "earth")
-      //   //This line of code is creating the center circle, AKA the Earth.
-      //
-      // var container = svg.append("g")
-      //   .attr("transform", "translate(" + w/2 + "," + h/2 + ")")
-      //   //This g object is the container in which the satelites orbit in.
-      //
-      // container.selectAll("g.satelite").data(satelites).enter().append("g")
-      //   .attr("class", "satelite").each(function(d, i) {
-      //     d3.select(this).append("circle").attr("class", "orbit")
-      //       .attr("r", d.R);
-      //       //This line of code establishes the orbital circle, the large R
-      //     d3.select(this).append("circle").attr("r", d.r).attr("cx",d.R)
-      //       .attr("cy", 0).attr("class", "satelite");
-      //       //This line of code creates the satelite object and starts them all off on a line.
-      //   });
-      //
-      // d3.timer(function() {
-      //   var delta = (Date.now() - t0);
-      //   svg.selectAll(".satelite").attr("transform", function(d) {
-      //     return "rotate(" + d.phi0 + delta * d.speed/200 + ")";
-      //
-      //     //This is the function that creates a rotational path based on the amount of time that has elapsed.
-      //   });
-      // });
 
     </script>
 
