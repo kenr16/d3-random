@@ -43,15 +43,18 @@
     var svg = d3.select("svg");
 
     var thisData = [
-      { R: 300, r:  1.5, speed: 5, phi0: 90 },
-      { R: 150, r: 15, speed: 2, phi0: 190 },
-      { R: 300, r:  3.5, speed: 5, phi0: 90 },
-      { R: 150, r: 3.5, speed: 2, phi0: 190 },
-      { R: 300, r:  6.8, speed: 5, phi0: 90 },
-      { R: 150, r: 5.3, speed: 2, phi0: 190 },
-      { R: 250, r: 4.2, speed: 22, phi0: 0 } ];
+      { R: 300, r:  1.5, speed: 7, phi0: 90, cx: 115, cy: 0 },
+      { R: 150, r: 15, speed: 3.5, phi0: 190, cx: 150, cy: 0 },
+      { R: 300, r:  3.5, speed: 2.5, phi0: 90, cx: 183, cy: 0 },
+      { R: 150, r: 3.5, speed: 4, phi0: 190, cx: 237, cy: 0 },
+      { R: 300, r:  6.8, speed: 5, phi0: 90, cx: 385, cy: 0 },
+      { R: 150, r: 5.3, speed: 6.3, phi0: 190, cx: 294, cy: 0 },
+      { R: 250, r: 4.2, speed: 22, phi0: 45, cx: 125, cy: 0 } ];
 
     var satelite = svg.selectAll(".satelite")
+        .data(thisData, function(d, i) { return (i); } );
+
+    var sateliteEnter = satelite.enter().append("circle")
         .data(thisData, function(d, i) { return (i); } );
 
     satelite.attr("r", function(d) { return d.r; });
@@ -71,7 +74,7 @@
 
 
       svg.selectAll(".satelite").attr("transform", function(d) {
-        return "translate(500,500), rotate(" + delta * .05 + ")";
+        return "translate(500,500), rotate(" + delta *  d.speed/200 + ")";
 
         //This is the function that creates a rotational path based on the amount of time that has elapsed.
       });
