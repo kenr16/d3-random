@@ -10,7 +10,7 @@
       }
       .satelite {
         stroke : #000000;
-        fill : #FFFFFF;
+        fill : #b3b3b3;
       }
       .earth {
         stroke : #000000;
@@ -26,19 +26,19 @@
       <G>
         <circle class="earth" cx="500" cy="500" r="35"></circle>
 
-        <circle class="satelite" cx="115" cy="0" r="1"></circle>
-        <circle class="satelite" cx="150" cy="0" r="1"></circle>
-        <circle class="satelite" cx="183" cy="0" r="1"></circle>
-        <circle class="satelite" cx="237" cy="0" r="1"></circle>
-        <circle class="satelite" cx="385" cy="0" r="1"></circle>
-        <circle class="satelite" cx="294" cy="0" r="1"></circle>
+        <circle class="notEarth"></circle>
+        <circle class="notEarth"></circle>
+        <circle class="notEarth"></circle>
+        <circle class="notEarth"></circle>
+        <circle class="notEarth"></circle>
+        <circle class="notEarth"></circle>
       </G>
     </svg>
   </div>
 
     <script type="text/javascript">
 
-    var circle = d3.selectAll("circle");
+    // var circle = d3.selectAll("circle");
     // circle.style("fill", "steelblue");
     var svg = d3.select("svg");
 
@@ -51,14 +51,21 @@
       { R: 150, r: 5.3, speed: 6.3, phi0: 190, cx: 294, cy: 0 },
       { R: 250, r: 4.2, speed: 22, phi0: 45, cx: 125, cy: 0 } ];
 
-    var satelite = svg.selectAll(".satelite")
-        .data(thisData, function(d, i) { return (i); } );
+    var satelite = svg.selectAll(".notEarth")
+        .data(thisData, function(d, i) { return (i); } )
+        .attr("class", "satelite");
 
     var sateliteEnter = satelite.enter().append("circle")
-        .data(thisData, function(d, i) { return (i); } );
+        .attr("class", "satelite");
 
+
+    satelite.attr("cx", function(d) { return d.cx; });
+    satelite.attr("cy", function(d) { return d.cy; });
     satelite.attr("r", function(d) { return d.r; });
 
+    // sateliteEnter.attr("cx", function(d) { return d.cx; });
+    // sateliteEnter.attr("cy", function(d) { return d.cy; });
+    // sateliteEnter.attr("r", function(d) { return d.r; });
 
     var t0 = Date.now();
 
