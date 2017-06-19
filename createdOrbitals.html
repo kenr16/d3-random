@@ -14,7 +14,7 @@
       }
       .earth {
         stroke : #000000;
-        fill : #000000;
+        fill : #ffcc00;
       }
     </style>
 
@@ -25,9 +25,13 @@
     <svg width="1000" height="1000">
       <G>
         <circle class="earth" cx="500" cy="500" r="35"></circle>
-        <circle class="satelite" cx="25" cy="85" r="35"></circle>
-        <circle class="satelite" cx="55" cy="55" r="10"></circle>
-        <circle class="satelite" cx="85" cy="25" r="15"></circle>
+
+        <circle class="satelite" cx="115" cy="0" r="1"></circle>
+        <circle class="satelite" cx="150" cy="0" r="1"></circle>
+        <circle class="satelite" cx="183" cy="0" r="1"></circle>
+        <circle class="satelite" cx="237" cy="0" r="1"></circle>
+        <circle class="satelite" cx="385" cy="0" r="1"></circle>
+        <circle class="satelite" cx="294" cy="0" r="1"></circle>
       </G>
     </svg>
   </div>
@@ -35,13 +39,23 @@
     <script type="text/javascript">
 
     var circle = d3.selectAll("circle");
-    circle.style("fill", "steelblue");
-
-
+    // circle.style("fill", "steelblue");
     var svg = d3.select("svg");
 
-    var satelite = svg.selectAll("circle")
-        .data([12, 57], function(d, i) { return (i); } );
+    var thisData = [
+      { R: 300, r:  1.5, speed: 5, phi0: 90 },
+      { R: 150, r: 15, speed: 2, phi0: 190 },
+      { R: 300, r:  3.5, speed: 5, phi0: 90 },
+      { R: 150, r: 3.5, speed: 2, phi0: 190 },
+      { R: 300, r:  6.8, speed: 5, phi0: 90 },
+      { R: 150, r: 5.3, speed: 2, phi0: 190 },
+      { R: 250, r: 4.2, speed: 22, phi0: 0 } ];
+
+    var satelite = svg.selectAll(".satelite")
+        .data(thisData, function(d, i) { return (i); } );
+
+    satelite.attr("r", function(d) { return d.r; });
+
 
     var t0 = Date.now();
 
