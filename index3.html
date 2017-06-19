@@ -23,7 +23,8 @@
 var svg = d3.select("svg");
 
 var circle = svg.selectAll("circle")
-    .data([12, 57, 112, 293, 356, 512]);
+    .data([12, 57, 112, 293, 356, 512], function(d, i) { console.log('i: ',i); console.log('d: ', d); return (i); } );
+    // The function(d) { return d; } will specify based on d, which datapoint to bind to which function.  i starts at 0.
 
 var circleEnter = circle.enter().append("circle");
 
@@ -32,15 +33,16 @@ circleEnter.attr("cx", function(d, i) { return i * 100 + 30; });
 circleEnter.attr("r", function(d) { return Math.sqrt(d); });
 
 circle.style("fill", "steelblue");
+//
+// var newcircle = svg.selectAll("circle")
+//     .data([32, 293, 1000]);
+//
+// newcircle.exit().remove();
 
 circle.attr("cx", function(d, i) { return i * 100 + 30; });
 circle.attr("r", function(d) { return Math.sqrt(d); });
 
 
-var newcircle = svg.selectAll("circle")
-    .data([32, 57, 1000]);
-
-newcircle.exit().remove();
 
 console.log(newcircle);
 
