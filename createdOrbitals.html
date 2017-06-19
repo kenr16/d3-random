@@ -24,8 +24,9 @@
   <div id="lowEarthOrbit">
     <svg width="1000" height="1000">
       <G>
-        <circle cx="40" cy="50" r="10"></circle>
-        <circle cx="100" cy="50" r="15"></circle>
+        <circle class="satelite" cx="500" cy="500" r="35"></circle>
+        <circle class="satelite" cx="440" cy="500" r="10"></circle>
+        <circle class="satelite" cx="100" cy="500" r="15"></circle>
       </G>
     </svg>
   </div>
@@ -36,9 +37,35 @@
     circle.style("fill", "steelblue");
 
 
+    var svg = d3.select("svg");
+
+    var satelite = svg.selectAll("circle")
+        .data([12, 57], function(d, i) { return (i); } );
+
+    var t0 = Date.now();
+
+    var container = d3.select("G");
+    //   .attr("transform", "translate(" + w/2 + "," + h/2 + ")");
+
+    d3.timer(function() {
+      var delta = (Date.now() - t0); //The amount of time that has elapsed since the execution of the program.
+      // svg.selectAll(".satelite").attr("transform", function(d) {
+
+      // svg.selectAll("circle").attr("transform", function(d) {
+      //   return "rotate(" + delta * 35/200 + ")";
+
+
+      svg.selectAll(".satelite").attr("transform", function(d) {
+        return "translate(500,500), rotate(" + delta * .05 + ")";
+
+        //This is the function that creates a rotational path based on the amount of time that has elapsed.
+      });
+    });
+
+
       //
       // var w = 800, h = 600;
-      // var t0 = Date.now();
+      //
       //
       // var satelites = [
       //   { R: 300, r:  5, speed: 5, phi0: 90 },
