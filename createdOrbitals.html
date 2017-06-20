@@ -29,9 +29,7 @@
         <circle class="notEarth"></circle>
         <circle class="notEarth"></circle>
         <circle class="notEarth"></circle>
-        <circle class="notEarth"></circle>
-        <circle class="notEarth"></circle>
-        <circle class="notEarth"></circle>
+
       </G>
     </svg>
   </div>
@@ -70,12 +68,18 @@
     // sateliteEnter.attr("r", function(d) { return d.r; });
 
     satelite.on("mouseover", displayData);
+    satelite.on("mouseout", hideData);
 
     function displayData(){
-      console.log(speed);
-      d3.select(this)
-    // d3.selectAll("circle")
-      .attr(speed, 0)
+      d3.select(this).style("stroke", "black").style("stroke-width", 5)
+      d3.timer.stop()
+      .transition()
+        .delay(0)
+        .duration(0);
+    };
+
+    function hideData(){
+      d3.select(this).style("stroke", "black").style("stroke-width", 1)
       .transition()
         .delay(0)
         .duration(0);
@@ -95,7 +99,7 @@
 
 
       svg.selectAll(".satelite").attr("transform", function(d) {
-        return "translate(500,500), rotate(" + d.phi0 + delta *  d.speed/200 + ")";
+        return "translate(500,500), rotate(" + d.phi0 + delta *  d.speed/400 + ")";
 
         //This is the function that creates a rotational path based on the amount of time that has elapsed.
       });
