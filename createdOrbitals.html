@@ -10,11 +10,11 @@
       }
       .satelite {
         stroke : #000000;
-        fill : #b3b3b3;
+        fill : none;
       }
       .earth {
         stroke : #000000;
-        fill : #ffcc00;
+        fill : #00a3cc;
       }
     </style>
 
@@ -62,6 +62,8 @@
     allSatelites.attr("cx", function(d) { return d.cx; });
     allSatelites.attr("cy", function(d) { return d.cy; });
     allSatelites.attr("r", function(d) { return d.r; });
+    allSatelites.transition().delay(0).duration(1000).style("fill", "rgb(" + (Math.random() * 256) + "," + (Math.random() * 256) + "," + (Math.random() * 256) + ")");
+
 
     // sateliteEnter.attr("cx", function(d) { return d.cx; });
     // sateliteEnter.attr("cy", function(d) { return d.cy; });
@@ -72,10 +74,10 @@
 
     function displayData(){
       d3.select(this).style("stroke", "black").style("stroke-width", 5)
-      d3.timer.stop()
       .transition()
         .delay(0)
-        .duration(0);
+        .duration(0)
+        .style("fill", "rgb(" + (Math.random() * 256) + "," + (Math.random() * 256) + "," + (Math.random() * 256) + ")");
     };
 
     function hideData(){
@@ -89,6 +91,9 @@
 
     var container = d3.select("G");
     //   .attr("transform", "translate(" + w/2 + "," + h/2 + ")");
+
+
+
 
     d3.timer(function() {
       var delta = (Date.now() - t0); //The amount of time that has elapsed since the execution of the program.
